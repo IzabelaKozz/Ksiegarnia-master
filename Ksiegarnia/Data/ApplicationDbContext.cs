@@ -10,6 +10,7 @@ namespace Ksiegarnia.Data
     public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Book> Books { get; set; }
+        
         public DbSet<User> User { get; set; }
         public new DbSet<Role> Roles { get; set; }
         public DbSet<Cart> Carts { get; set; }
@@ -19,7 +20,15 @@ namespace Ksiegarnia.Data
             : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            ModelBuilderExtensions.Seed(modelBuilder);
+        }
+
     }
+}
     public interface IBookRepository
     {
         IEnumerable<Book> GetAllBooks();
@@ -99,4 +108,3 @@ namespace Ksiegarnia.Data
         }
     }
 
-}
